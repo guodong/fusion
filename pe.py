@@ -30,8 +30,8 @@ def main(N, N1):
                 lid = lid + 1
                 g.add_edge(dst, src, c=code1)
 
-    print len(g.nodes)
-    print len(g.edges)
+    print(len(g.nodes))
+    print(len(g.edges))
 
 
     maxD = 0
@@ -39,8 +39,8 @@ def main(N, N1):
         if g.in_degree(n) > maxD:
             maxD = g.in_degree(n)
 
-    print maxD
-    return
+    print(maxD)
+    # return
 
     npaths = 30000
     paths = []
@@ -54,11 +54,11 @@ def main(N, N1):
                     path = nx.shortest_path(g, n1, n2)
                     paths.append(path)
 
-                    # print path
+                    # print(path)
                     edges = zip(path[:-1], path[1:])
                     out_edges = out_edges.union(edges)
                     codes = map(lambda x: g.get_edge_data(x[0], x[1])['c'], edges)
-                    # print codes
+                    # print(codes)
                     for i in range(0, N):
                         s.add(Or([And(map(lambda x: x[i][0], codes)), And(map(lambda x: x[i][1], codes))]))
                     # s.add(Or([And(map(lambda x: x[1][0], codes)), And(map(lambda x: x[1][1], codes))]))
@@ -66,9 +66,9 @@ def main(N, N1):
 
                 except:
                     1
-                    print 'nopath'
+                    print('nopath')
 
-    print len(paths)
+    print(len(paths))
     nn = 0
     for n in g.nodes:
         if g.out_degree(n) > 1:
@@ -83,11 +83,11 @@ def main(N, N1):
                     s.add(Not(And(map(lambda i: Or([And(codes[0][i][0], codes[1][i][0]), And(codes[0][i][1], codes[1][i][1])]), range(0, N)))))
                 else:
                     pass
-                    # print 'not out port'
+                    # print('not out port')
     m = s.check()
-    print '----'
-    print N
-    print m
+    print('----')
+    print(N)
+    print(m)
 
 # main(2)
 
